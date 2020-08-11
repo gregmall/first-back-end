@@ -29,7 +29,7 @@ console.log(response.body);
     };
 }
 async function getWeather(lat, lon) {
-  const response = await request.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=38.123&lon=-78.543&key=${WEATHER_CODE}`)
+  const response = await request.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${lat}&lon=${lon}&key=${WEATHER_CODE}`)
   const data = response.body.data;
   
   const forecastArray = data.map((weatherItem) =>{
