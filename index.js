@@ -29,8 +29,11 @@ console.log(response.body);
     };
 }
 async function getWeather(lat, lon) {
-  const data = await request.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=38.123&lon=-78.543&key=${WEATHER_CODE}`)
+  const response = await request.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=38.123&lon=-78.543&key=${WEATHER_CODE}`)
+  const data = response.body.data;
+  
   const forecastArray = data.map((weatherItem) =>{
+   
     return {
         forecast: weatherItem.weather.description,
         time: new Date(weatherItem.ts * 1000),
@@ -52,12 +55,12 @@ app.get('/location', async (req,  res) => {
 
 
 });
-app.get('/weather', (req, res) => {
+app.get('/weather', async (req, res) => {
   try {
   
   const userLat = req.query.latitude;
   const userLon = req.query.longitude;
-  const mungedData = getWeather(userLat, userLon);
+  const mungedData = await getWeather(userLat, userLon);
   
   
   res.json(mungedData);
