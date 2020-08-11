@@ -7,9 +7,7 @@ const weatherData = require('./data/weather.js');
 const  request  = require('superagent');
 const app = express();
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`LISTEN SAYS: Example app listening at http://localhost: ${port}`);
-});
+
 app.use(cors());
 app.use(express.static('public'));
 const {
