@@ -7,7 +7,6 @@ const weatherData = require('./data/weather.js');
 const  request  = require('superagent');
 const app = express();
 const port = process.env.PORT || 3000;
-
 app.use(cors());
 app.use(express.static('public'));
 const {
@@ -53,12 +52,12 @@ app.get('/location', async (req,  res) => {
 
 
 });
-app.get('/weather', async (req, res) => {
+app.get('/weather', (req, res) => {
   try {
   
   const userLat = req.query.latitude;
   const userLon = req.query.longitude;
-  const mungedData = await getWeather(userLat, userLon);
+  const mungedData = getWeather(userLat, userLon);
   
   
   res.json(mungedData);
