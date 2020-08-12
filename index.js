@@ -11,15 +11,15 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.static('public'));
 const {
-  GEO_CODE,
-  WEATHER_CODE,
+  GEOCODE_API_KEY,
+  WEATHER_API_KEY,
   YELP_CODE,
-  HIKING_CODE
+  TRAIL_API_KEY
 
 } = process.env;
 
 async function getLatLong(cityName){
- const response = await request.get(`https://us1.locationiq.com/v1/search.php?key=${GEO_CODE}&q=${cityName}&format=json`);
+ const response = await request.get(`https://us1.locationiq.com/v1/search.php?key=${GEOCODE_API_KEY}&q=${cityName}&format=json`);
 
  const city = response.body[0];
 console.log(response.body);
@@ -30,7 +30,7 @@ console.log(response.body);
     };
 }
 async function getWeather(lat, lon) {
-  const response = await request.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${lat}&lon=${lon}&key=${WEATHER_CODE}`)
+  const response = await request.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${lat}&lon=${lon}&key=${WEATHER_API_KEY}`)
   const data = response.body.data;
   
   const forecastArray = data.map((weatherItem) =>{
@@ -74,7 +74,7 @@ app.get('/weather', async (req, res) => {
 });
 async function getHiking(lat, lon) {
 
-  const response = await request.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=200&key=${HIKING_CODE}`);
+  const response = await request.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=200&key=${TRAIL_API_KEY}`);
   
 
   trails = response.body.trails;
