@@ -90,7 +90,7 @@ async function getHiking(lat, lon) {
   //       forecast: weatherItem.weather.description,
   //       time: new Date(weatherItem.ts * 1000),
   //   };
- 
+    }
   
 
 app.get('/hiking', async (req, res) => {
