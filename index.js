@@ -74,11 +74,15 @@ app.get('/weather', async (req, res) => {
 async function getHiking(lat, lon) {
   const response = await request.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=200&key=${HIKING_CODE}`)
   const hikingArray = [];
-  for(let i = 0; i < 10; i++){
-    hikingArray.push(response[i]);
-    }
-    return hikingArray;
-  }
+  console.log(response)
+  data = response.body.trails;
+  console.log(data);
+     for(let i = 0; i < 10; i++){
+     hikingArray.push(response[i]);
+     }
+     console.log(hikingArray);
+     return hikingArray;
+    
   
   // const forecastArray = data.map((weatherItem) =>{
    
