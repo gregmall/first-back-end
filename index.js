@@ -5,6 +5,7 @@ const cors = require('cors');
 const geoData = require('./data/geo.js');
 const weatherData = require('./data/weather.js');
 const  request  = require('superagent');
+const { data } = require('./data/weather.js');
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(cors());
@@ -72,24 +73,29 @@ app.get('/weather', async (req, res) => {
 
 });
 async function getHiking(lat, lon) {
-  const response = await request.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=200&key=${HIKING_CODE}`)
-  const hikingArray = [];
-  console.log(response)
-  data = response.body.trails;
-  console.log(data);
-     for(let i = 0; i < 10; i++){
-     hikingArray.push(response[i]);
-     }
-     console.log(hikingArray);
-     return hikingArray;
-    
+  const queryUrl = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=200&key=${HIKING_CODE}`;
+  const response = await request.get(queryUrl);
   
-  // const forecastArray = data.map((weatherItem) =>{
-   
-  //   return {
-  //       forecast: weatherItem.weather.description,
-  //       time: new Date(weatherItem.ts * 1000),
-  //   };
+  console.log(response)
+  trails = response.body.trails;
+  const trailsArray= trails.map((trail) => {
+    return {
+      name: trail.name,
+      location: trail.location,
+      length: trail.length,
+      stars: trail.stars,
+      start_votes: trail.starVotes,
+      summary: trail.summary,
+      trail_url: trail.url,
+      conditions: trail.conditionDetails,
+      condition_date: condition.conditionDate,
+
+
+
+    }
+  })
+  return trailsArray;
+
     }
   
 
