@@ -88,7 +88,7 @@ async function getHiking(lat, lon) {
       summary: trail.summary,
       trail_url: trail.url,
       conditions: trail.conditionDetails,
-      condition_date: condition.conditionDate,
+      condition_date: trail.conditionDate.split(' ')[0],            condition_time: trail.conditionDate.split(' ')[1],
 
 
 
