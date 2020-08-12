@@ -73,10 +73,10 @@ app.get('/weather', async (req, res) => {
 
 });
 async function getHiking(lat, lon) {
-  const queryUrl = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=200&key=${HIKING_CODE}`;
-  const response = await request.get(queryUrl);
+
+  const response = await request.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=200&key=${HIKING_CODE}`);
   
-  console.log(response)
+
   trails = response.body.trails;
   const trailsArray= trails.map((trail) => {
     return {
@@ -87,19 +87,19 @@ async function getHiking(lat, lon) {
       start_votes: trail.starVotes,
       summary: trail.summary,
       trail_url: trail.url,
-      conditions: trail.conditionDetails,
+      conditions: `${trail.conditionStatus}: ${trail.conditionDetails}`,
       condition_date: trail.conditionDate.split(' ')[0],            condition_time: trail.conditionDate.split(' ')[1],
 
 
 
-    }
-  })
+    };
+  });
   return trailsArray;
 
     }
   
 
-app.get('/hiking', async (req, res) => {
+app.get('/trails', async (req, res) => {
   try {
   
   const userLat = req.query.latitude;
